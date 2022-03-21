@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 from time import sleep
 from random import randint
 from collections import OrderedDict
@@ -41,13 +41,13 @@ def get_data():
                                                  'cols__column_large_percent-25 '
                                                  'margin_top_20')
 
-    for brand in all_auto_brands:
+    for brand in all_auto_brands[1]:
         sleep(randint(1, 2))
         if brand.txt not in brands:
             link = 'https://auto.mail.ru' + brand.find('a', class_='p-firm__text link-holder').get('href')
             brands[brand.text] = get_models(link)
 
-    save_data(OrderedDict(sorted(brands.items())))  # Ordering data by keys before sending it to save
+    return OrderedDict(sorted(brands.items()))  # Ordering data by keys before sending it to save
 
 
 def get_models(url):
@@ -76,4 +76,4 @@ def save_data(data):
 
 if __name__ == '__main__':
     get_source('https://auto.mail.ru/catalog/')
-    get_data()
+    save_data(get_data())
