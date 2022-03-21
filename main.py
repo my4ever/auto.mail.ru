@@ -31,7 +31,7 @@ def get_data():
     """
     Getting data out html code.
     """
-    brands = {}
+    brands = dict()
     source_data = open_html()
     # Getting brands.
     soup = bs(source_data, 'lxml')
@@ -55,7 +55,7 @@ def get_models(url):
     Getting all models for a brand.
     """
     get_source(url)
-    models = []
+    models = list()
     source_data = open_html()
     # Getting models.
     soup = bs(source_data, 'lxml')
