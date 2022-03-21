@@ -44,7 +44,9 @@ def get_data():
     for brand in all_auto_brands[1]:
         sleep(randint(1, 2))
         if brand.txt not in brands:
-            link = 'https://auto.mail.ru' + brand.find('a', class_='p-firm__text link-holder').get('href')
+            link = 'https://auto.mail.ru' + brand.find('a', class_='p-firm__text '
+                                                                   'link-holder').get('href')
+            # Getting models of a brand.
             brands[brand.text] = get_models(link)
 
     return OrderedDict(sorted(brands.items()))  # Ordering data by keys before sending it to save
