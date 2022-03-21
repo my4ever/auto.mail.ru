@@ -36,7 +36,7 @@ def get_data():
     soup = bs(source_data, 'lxml')
     all_auto_brands = soup.findAll('div', class_='cols__column cols__column_small_percent-33 cols__column_medium_percent-33 cols__column_large_percent-25 margin_top_20')
 
-    for brand in all_auto_brands[0]:
+    for brand in all_auto_brands:
         sleep(randint(1, 2))
         if brand.txt not in brands:
             link = 'https://auto.mail.ru' + brand.find('a', class_='p-firm__text link-holder').get('href')
