@@ -5,7 +5,8 @@ from random import randint
 from collections import OrderedDict
 from bs4 import BeautifulSoup as bs
 
-headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'}
+headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
+                         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'}
 
 
 def get_source(url):
@@ -34,7 +35,11 @@ def get_data():
     source_data = open_html()
     # Getting brands.
     soup = bs(source_data, 'lxml')
-    all_auto_brands = soup.findAll('div', class_='cols__column cols__column_small_percent-33 cols__column_medium_percent-33 cols__column_large_percent-25 margin_top_20')
+    all_auto_brands = soup.findAll('div', class_='cols__column '
+                                                 'cols__column_small_percent-33 '
+                                                 'cols__column_medium_percent-33 '
+                                                 'cols__column_large_percent-25 '
+                                                 'margin_top_20')
 
     for brand in all_auto_brands:
         sleep(randint(1, 2))
