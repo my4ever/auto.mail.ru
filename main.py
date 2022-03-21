@@ -10,11 +10,20 @@ headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleW
 
 def get_source(url):
     """
-    Getting a source HTML file.
+    Getting a source HTML code.
     """
-    scr = requests.get(url, headers=headers)
+    html_code = requests.get(url, headers=headers)
     with open('source.html', 'w') as file:
-        file.write(scr.text)
+        file.write(html_code.text)
+
+
+def open_html():
+    """
+    Opening HTML code.
+    """
+    with open('source.html') as file:
+        source_data = file.read()
+    return source_data
 
 
 def get_data():
@@ -22,9 +31,7 @@ def get_data():
     Getting data out html code.
     """
     brands = {}
-    # Opening html code.
-    with open('source.html', 'r') as file:
-        source_data = file.read()
+    source_data = open_html()
     # Getting brands.
     soup = bs(source_data, 'lxml')
     all_auto_brands = soup.findAll('div', class_='cols__column cols__column_small_percent-33 cols__column_medium_percent-33 cols__column_large_percent-25 margin_top_20')
@@ -44,9 +51,7 @@ def get_models(url):
     """
     get_source(url)
     models = []
-    # Opening HTML code.
-    with open('source.html') as file:
-        source_data = file.read()
+    source_data = open_html()
     # Getting models.
     soup = bs(source_data, 'lxml')
     all_models = soup.findAll('a', class_='p-car__title link-holder')
