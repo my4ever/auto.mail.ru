@@ -1,3 +1,4 @@
+
 # auto.mail.ru
 This is script to scrap brands and model of cars from auto.mail.ru 
 
@@ -9,4 +10,4 @@ Then you`ll need to run the script:
 
     main.py
 
-The output will be saved at the root directory of the script in JSON format.
+The output will be saved into the result directory within JSON format.

@@ -1,4 +1,6 @@
 import json
+import os
+
 import requests
 from time import sleep
 from random import randint
@@ -11,10 +13,12 @@ headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
 
 def get_source(url):
     """
-    Getting a source HTML code.
+    Getting a source HTML code,
+    and putting it into created directory temp.
     """
+    os.makedirs('temp', exist_ok=True)
     html_code = requests.get(url, headers=headers)
-    with open('source.html', 'w') as file:
+    with open('temp/source.html', 'w') as file:
         file.write(html_code.text)
 
 
@@ -22,7 +26,7 @@ def open_html():
     """
     Opening HTML code.
     """
-    with open('source.html') as file:
+    with open('temp/source.html') as file:
         source_data = file.read()
     return source_data
 
@@ -70,11 +74,20 @@ def get_models(url):
 
 def save_data(data):
     """
-    Dumping data into json file.
+    Creating directory result,
+    dumping data into json file into it,
+    removing temp directory and file in it.
     """
-    with open('cars.json', 'w', encoding="utf-8") as file:
+    file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'temp/source.html')
+    dir_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'temp')
+
+    os.makedirs('result', exist_ok=True)
+
+    with open('result/cars.json', 'w', encoding="utf-8") as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
 
+    os.remove(file_path)
+    os.rmdir(dir_path)
 
 if __name__ == '__main__':
     get_source('https://auto.mail.ru/catalog/')
